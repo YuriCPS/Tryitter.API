@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32922.545
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tryitter.API", "Tryitter.API\Tryitter.API.csproj", "{EEE6EE53-91C0-4D63-8161-01C1EFF70294}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EEE6EE53-91C0-4D63-8161-01C1EFF70294}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEE6EE53-91C0-4D63-8161-01C1EFF70294}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEE6EE53-91C0-4D63-8161-01C1EFF70294}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEE6EE53-91C0-4D63-8161-01C1EFF70294}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C9715A3B-7CFF-465F-9145-35DC0F57BFA3}
+	EndGlobalSection
+EndGlobal
