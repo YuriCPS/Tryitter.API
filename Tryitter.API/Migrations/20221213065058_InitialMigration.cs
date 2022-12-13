@@ -28,7 +28,7 @@ namespace Tryitter.API.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -68,6 +68,38 @@ namespace Tryitter.API.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Modules",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Fundamentos" },
+                    { 2, "Front-end" },
+                    { 3, "Back-end" },
+                    { 4, "Ciencia da Computação" },
+                    { 5, "Beyond" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "Bio", "Email", "FirstName", "LastName", "ModuleId", "Password", "UserName" },
+                values: new object[] { 1, "Administrador do Tryitter", "admin@email.com.br", "Admin", "Tryitter", 5, "admin123", "Admin" });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "Bio", "Email", "FirstName", "LastName", "ModuleId", "Password", "UserName" },
+                values: new object[] { 2, "Criador do Tryitter", "yuri@email.com.br", "Yuri", "Carvalho", 5, "yuri123", "Yuri" });
+
+            migrationBuilder.InsertData(
+                table: "Tweets",
+                columns: new[] { "Id", "Content", "CreatedAt", "UpdatedAt", "UserId" },
+                values: new object[] { 1, "Esté é o primeiro tweet do Tryitter", new DateTime(2022, 12, 13, 3, 50, 58, 683, DateTimeKind.Local).AddTicks(7946), new DateTime(2022, 12, 13, 3, 50, 58, 683, DateTimeKind.Local).AddTicks(7955), 2 });
+
+            migrationBuilder.InsertData(
+                table: "Tweets",
+                columns: new[] { "Id", "Content", "CreatedAt", "UpdatedAt", "UserId" },
+                values: new object[] { 2, "Olá, mundo!", new DateTime(2022, 12, 13, 3, 50, 58, 683, DateTimeKind.Local).AddTicks(7956), new DateTime(2022, 12, 13, 3, 50, 58, 683, DateTimeKind.Local).AddTicks(7957), 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tweets_UserId",

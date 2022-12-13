@@ -37,6 +37,33 @@ namespace Tryitter.API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Modules");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Fundamentos"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Front-end"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Back-end"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Ciencia da Computação"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Beyond"
+                        });
                 });
 
             modelBuilder.Entity("Tryitter.API.Data.Tweet", b =>
@@ -65,6 +92,24 @@ namespace Tryitter.API.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Tweets");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Content = "Esté é o primeiro tweet do Tryitter",
+                            CreatedAt = new DateTime(2022, 12, 13, 3, 50, 58, 683, DateTimeKind.Local).AddTicks(7946),
+                            UpdatedAt = new DateTime(2022, 12, 13, 3, 50, 58, 683, DateTimeKind.Local).AddTicks(7955),
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Content = "Olá, mundo!",
+                            CreatedAt = new DateTime(2022, 12, 13, 3, 50, 58, 683, DateTimeKind.Local).AddTicks(7956),
+                            UpdatedAt = new DateTime(2022, 12, 13, 3, 50, 58, 683, DateTimeKind.Local).AddTicks(7957),
+                            UserId = 1
+                        });
                 });
 
             modelBuilder.Entity("Tryitter.API.Data.User", b =>
@@ -98,7 +143,7 @@ namespace Tryitter.API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Username")
+                    b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -107,6 +152,30 @@ namespace Tryitter.API.Migrations
                     b.HasIndex("ModuleId");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Bio = "Administrador do Tryitter",
+                            Email = "admin@email.com.br",
+                            FirstName = "Admin",
+                            LastName = "Tryitter",
+                            ModuleId = 5,
+                            Password = "admin123",
+                            UserName = "Admin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Bio = "Criador do Tryitter",
+                            Email = "yuri@email.com.br",
+                            FirstName = "Yuri",
+                            LastName = "Carvalho",
+                            ModuleId = 5,
+                            Password = "yuri123",
+                            UserName = "Yuri"
+                        });
                 });
 
             modelBuilder.Entity("Tryitter.API.Data.Tweet", b =>

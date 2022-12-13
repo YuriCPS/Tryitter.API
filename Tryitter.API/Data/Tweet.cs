@@ -9,7 +9,7 @@ namespace Tryitter.API.Data
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
 
-        [ForeignKey(nameof(UserId))]
+  
         public int UserId { get; set; }
         public User User { get; set; }
     }
