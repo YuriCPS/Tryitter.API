@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Tryitter.API.Contracts;
 using Tryitter.API.Data;
 using Tryitter.API.Models.User;
 
@@ -15,12 +11,12 @@ namespace Tryitter.API.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly TryitterDbContext _context;
+        private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
 
-        public UsersController(TryitterDbContext context, IMapper mapper)
+        public UsersController(IUserRepository userRepository, IMapper mapper)
         {
-            _context = context;
+            _userRepository = userRepository;
             this._mapper = mapper;
         }
 
@@ -28,8 +24,9 @@ namespace Tryitter.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<GetUserDto>>> GetUsers()
         {
-            var users = await _context.Users.ToListAsync();
+            var users = await _userRepository.GetAllAsync();
             var usersList = _mapper.Map<List<GetUserDto>>(users);
+            
             return Ok(usersList);
         }
 
@@ -37,13 +34,11 @@ namespace Tryitter.API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<GetUserDetailsDto>> GetUser(int id)
         {
-            var user = await _context.Users.Include(q => q.Module).FirstOrDefaultAsync(q => q.Id == id);
-
+            var user = await _userRepository.GetDetails(id);
             if (user == null)
             {
                 return NotFound();
             }
-
             var userDto = _mapper.Map<GetUserDetailsDto>(user);
 
             return Ok(userDto);
@@ -59,8 +54,7 @@ namespace Tryitter.API.Controllers
                 return BadRequest("Invalid user id");
             }
 
-            var user = await _context.Users.FindAsync(id);
-            
+            var user = await _userRepository.GetAsync(id);
             if (user == null)
             {
                 return NotFound("User not found");
@@ -70,20 +64,20 @@ namespace Tryitter.API.Controllers
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _userRepository.UpdateAsync(user);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!await UserExists(id))
                 {
-                    return NotFound();
+                    return NotFound("User not found");
                 }
                 else
                 {
                     throw;
                 }
             }
-
+            
             return NoContent();
         }
 
@@ -93,9 +87,7 @@ namespace Tryitter.API.Controllers
         public async Task<ActionResult<User>> PostUser(CreateUserDto createUserDto)
         {
             var user = _mapper.Map<User>(createUserDto);
-
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
+            await _userRepository.AddAsync(user);
 
             return CreatedAtAction("GetUser", new { id = user.Id }, user);
         }
@@ -104,21 +96,19 @@ namespace Tryitter.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var user = await _userRepository.GetAsync(id);
             if (user == null)
             {
-                return NotFound();
+                return NotFound("User not found");
             }
-
-            _context.Users.Remove(user);
-            await _context.SaveChangesAsync();
+            await _userRepository.DeleteAsync(id);
 
             return NoContent();
         }
 
-        private bool UserExists(int id)
+        private async Task<bool> UserExists(int id)
         {
-            return _context.Users.Any(e => e.Id == id);
+            return await _userRepository.Exists(id);
         }
     }
 }
