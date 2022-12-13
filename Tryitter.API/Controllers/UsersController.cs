@@ -52,14 +52,21 @@ namespace Tryitter.API.Controllers
         // PUT: api/Users/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, User user)
+        public async Task<IActionResult> PutUser(int id, UpdateUserDto updateUserDto)
         {
-            if (id != user.Id)
+            if (id != updateUserDto.Id)
             {
-                return BadRequest();
+                return BadRequest("Invalid user id");
             }
 
-            _context.Entry(user).State = EntityState.Modified;
+            var user = await _context.Users.FindAsync(id);
+            
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
+
+            _mapper.Map(updateUserDto, user);
 
             try
             {

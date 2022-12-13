@@ -12,6 +12,8 @@ namespace Tryitter.API.Configurations
             CreateMap<User, CreateUserDto>().ReverseMap();
             CreateMap<User, GetUserDto>().ReverseMap();
             CreateMap<User, GetUserDetailsDto>().ReverseMap();
+            CreateMap<User, UpdateUserDto>().ReverseMap();
+
             CreateMap<Module, ModuleDto>().ReverseMap();
         }
     }
