@@ -12,7 +12,7 @@ using Tryitter.API.Data;
 namespace Tryitter.API.Migrations
 {
     [DbContext(typeof(TryitterDbContext))]
-    [Migration("20221213065058_InitialMigration")]
+    [Migration("20221213070322_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -100,16 +100,16 @@ namespace Tryitter.API.Migrations
                         {
                             Id = 1,
                             Content = "Esté é o primeiro tweet do Tryitter",
-                            CreatedAt = new DateTime(2022, 12, 13, 3, 50, 58, 683, DateTimeKind.Local).AddTicks(7946),
-                            UpdatedAt = new DateTime(2022, 12, 13, 3, 50, 58, 683, DateTimeKind.Local).AddTicks(7955),
+                            CreatedAt = new DateTime(2022, 12, 13, 4, 3, 22, 473, DateTimeKind.Local).AddTicks(9548),
+                            UpdatedAt = new DateTime(2022, 12, 13, 4, 3, 22, 473, DateTimeKind.Local).AddTicks(9557),
                             UserId = 2
                         },
                         new
                         {
                             Id = 2,
                             Content = "Olá, mundo!",
-                            CreatedAt = new DateTime(2022, 12, 13, 3, 50, 58, 683, DateTimeKind.Local).AddTicks(7956),
-                            UpdatedAt = new DateTime(2022, 12, 13, 3, 50, 58, 683, DateTimeKind.Local).AddTicks(7957),
+                            CreatedAt = new DateTime(2022, 12, 13, 4, 3, 22, 473, DateTimeKind.Local).AddTicks(9559),
+                            UpdatedAt = new DateTime(2022, 12, 13, 4, 3, 22, 473, DateTimeKind.Local).AddTicks(9559),
                             UserId = 1
                         });
                 });

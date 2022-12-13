@@ -94,12 +94,12 @@ namespace Tryitter.API.Migrations
             migrationBuilder.InsertData(
                 table: "Tweets",
                 columns: new[] { "Id", "Content", "CreatedAt", "UpdatedAt", "UserId" },
-                values: new object[] { 1, "Esté é o primeiro tweet do Tryitter", new DateTime(2022, 12, 13, 3, 50, 58, 683, DateTimeKind.Local).AddTicks(7946), new DateTime(2022, 12, 13, 3, 50, 58, 683, DateTimeKind.Local).AddTicks(7955), 2 });
+                values: new object[] { 1, "Esté é o primeiro tweet do Tryitter", new DateTime(2022, 12, 13, 4, 3, 22, 473, DateTimeKind.Local).AddTicks(9548), new DateTime(2022, 12, 13, 4, 3, 22, 473, DateTimeKind.Local).AddTicks(9557), 2 });
 
             migrationBuilder.InsertData(
                 table: "Tweets",
                 columns: new[] { "Id", "Content", "CreatedAt", "UpdatedAt", "UserId" },
-                values: new object[] { 2, "Olá, mundo!", new DateTime(2022, 12, 13, 3, 50, 58, 683, DateTimeKind.Local).AddTicks(7956), new DateTime(2022, 12, 13, 3, 50, 58, 683, DateTimeKind.Local).AddTicks(7957), 1 });
+                values: new object[] { 2, "Olá, mundo!", new DateTime(2022, 12, 13, 4, 3, 22, 473, DateTimeKind.Local).AddTicks(9559), new DateTime(2022, 12, 13, 4, 3, 22, 473, DateTimeKind.Local).AddTicks(9559), 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tweets_UserId",
