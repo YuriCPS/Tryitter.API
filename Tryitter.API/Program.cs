@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Serilog;
+using Tryitter.API.Configurations;
 using Tryitter.API.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,6 +24,9 @@ builder.Services.AddCors(options =>
 
 // Add Serilog
 builder.Host.UseSerilog((context, configuration) => configuration.WriteTo.Console().ReadFrom.Configuration(context.Configuration));
+
+// Add AutoMapper
+builder.Services.AddAutoMapper(typeof(MapperConfig));
 
 var app = builder.Build();
 
