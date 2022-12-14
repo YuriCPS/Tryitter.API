@@ -84,7 +84,7 @@ namespace Tryitter.API.Controllers
         // POST: api/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(CreateUserDto createUserDto)
+        public async Task<ActionResult<GetUserDetailsDto>> PostUser(CreateUserDto createUserDto)
         {
             var user = _mapper.Map<User>(createUserDto);
             await _userRepository.AddAsync(user);

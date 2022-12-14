@@ -66,7 +66,6 @@ namespace Tryitter.API.Controllers
             }
 
             _mapper.Map(updateTweetDto, tweet);
-
             tweet.UpdatedAt = DateTime.Now;
             
             try
@@ -91,20 +90,15 @@ namespace Tryitter.API.Controllers
         // POST: api/Tweets
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Tweet>> PostTweet(CreateTweetDto createTweetDto)
+        public async Task<ActionResult<GetTweetDetailsDto>> PostTweet(CreateTweetDto createTweetDto)
         {
             var tweet = _mapper.Map<Tweet>(createTweetDto);
-            var newTweet = new Tweet
-            {
-                Id = tweet.Id,
-                Content = tweet.Content,
-                CreatedAt = DateTime.Now,
-                UpdatedAt = DateTime.Now,
-                UserId = tweet.UserId
-            };
-            await _tweetRepository.AddAsync(newTweet);
+            tweet.CreatedAt = DateTime.Now;
+            tweet.UpdatedAt = DateTime.Now;
+            
+            await _tweetRepository.AddAsync(tweet);
 
-            return CreatedAtAction("GetTweet", new { id = tweet.Id }, newTweet);
+            return CreatedAtAction("GetTweet", new { id = tweet.Id }, tweet);
         }
         
         // DELETE: api/Tweets/5
