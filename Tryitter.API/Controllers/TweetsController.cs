@@ -19,7 +19,7 @@ namespace Tryitter.API.Controllers
             _tweetRepository = tweetRepository;
             _mapper = mapper;
         }
-        
+
         // GET: api/Tweets
         [HttpGet]
         public async Task<ActionResult<IEnumerable<GetTweetDto>>> GetTweets()
@@ -60,8 +60,15 @@ namespace Tryitter.API.Controllers
                 return NotFound("Tweet not found");
             }
 
+            if (updateTweetDto.UserId != tweet.UserId)
+            {
+                return BadRequest("Invalid user id, must be the same as the tweet's user id");
+            }
+
             _mapper.Map(updateTweetDto, tweet);
-                      
+
+            tweet.UpdatedAt = DateTime.Now;
+            
             try
             {
                 await _tweetRepository.UpdateAsync(tweet);
@@ -87,9 +94,17 @@ namespace Tryitter.API.Controllers
         public async Task<ActionResult<Tweet>> PostTweet(CreateTweetDto createTweetDto)
         {
             var tweet = _mapper.Map<Tweet>(createTweetDto);
-            await _tweetRepository.AddAsync(tweet);
+            var newTweet = new Tweet
+            {
+                Id = tweet.Id,
+                Content = tweet.Content,
+                CreatedAt = DateTime.Now,
+                UpdatedAt = DateTime.Now,
+                UserId = tweet.UserId
+            };
+            await _tweetRepository.AddAsync(newTweet);
 
-            return CreatedAtAction("GetTweet", new { id = tweet.Id }, tweet);
+            return CreatedAtAction("GetTweet", new { id = tweet.Id }, newTweet);
         }
         
         // DELETE: api/Tweets/5
