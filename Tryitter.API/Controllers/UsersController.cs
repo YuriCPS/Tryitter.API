@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Tryitter.API.Contracts;
@@ -22,6 +23,7 @@ namespace Tryitter.API.Controllers
 
         // GET: api/Users
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<GetUserDto>>> GetUsers()
         {
             var users = await _userRepository.GetAllAsync();
@@ -32,6 +34,7 @@ namespace Tryitter.API.Controllers
 
         // GET: api/Users/5
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<ActionResult<GetUserDetailsDto>> GetUser(int id)
         {
             var user = await _userRepository.GetById(id);
@@ -46,6 +49,7 @@ namespace Tryitter.API.Controllers
 
         // GET: api/Users/UserName/userName
         [HttpGet("UserName/{userName}")]
+        [AllowAnonymous]
         public async Task<ActionResult<GetUserDetailsDto>> GetUserByUserName(string userName)
         {
             var user = await _userRepository.GetByUserName(userName);
@@ -61,6 +65,7 @@ namespace Tryitter.API.Controllers
         // PUT: api/Users/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> PutUser(int id, UpdateUserDto updateUserDto)
         {
             if (id != updateUserDto.Id)
@@ -98,6 +103,7 @@ namespace Tryitter.API.Controllers
         // POST: api/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<GetUserDetailsDto>> PostUser(CreateUserDto createUserDto)
         {
             var user = _mapper.Map<User>(createUserDto);
@@ -108,6 +114,7 @@ namespace Tryitter.API.Controllers
 
         // DELETE: api/Users/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteUser(int id)
         {
             var user = await _userRepository.GetAsync(id);

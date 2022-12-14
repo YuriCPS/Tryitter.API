@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Tryitter.API.Contracts;
 using Tryitter.API.Data;
@@ -24,6 +25,7 @@ namespace Tryitter.API.Controllers
         // POST: api/Register
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost("Register")]
+        [AllowAnonymous]
         public async Task<ActionResult<GetUserDetailsDto>> PostUser(CreateUserDto createUserDto)
         {
             var user = _mapper.Map<User>(createUserDto);
@@ -35,6 +37,7 @@ namespace Tryitter.API.Controllers
         // POST: api/Login
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost("Login")]
+        [AllowAnonymous]
         public async Task<ActionResult<GetUserDetailsDto>> LoginUser(LoginUserDto loginUserDto)
         {
             var authResponse = await _authManager.Login(loginUserDto);

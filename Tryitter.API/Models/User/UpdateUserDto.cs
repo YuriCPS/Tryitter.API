@@ -15,6 +15,8 @@ namespace Tryitter.API.Models.User
         [Required]
         public string Bio { get; set; }
         [Required]
+        public string ImageUrl { get; set; }
+        [Required]
         public int ModuleId { get; set; }
     }
 }

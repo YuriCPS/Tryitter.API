@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Tryitter.API.Contracts;
@@ -22,6 +23,7 @@ namespace Tryitter.API.Controllers
 
         // GET: api/Tweets
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<GetTweetDto>>> GetTweets()
         {
             var tweets = await _tweetRepository.GetAllAsync();
@@ -32,6 +34,7 @@ namespace Tryitter.API.Controllers
 
         // GET: api/Tweets/5
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<ActionResult<GetTweetDetailsDto>> GetTweet(int id)
         {
             var tweet = await _tweetRepository.GetById(id);
@@ -46,6 +49,7 @@ namespace Tryitter.API.Controllers
 
         // GET: api/Tweets/Last
         [HttpGet("Last")]
+        [AllowAnonymous]
         public async Task<ActionResult<GetTweetDetailsDto>> GetLastTweet()
         {
             var tweets = await _tweetRepository.GetAllAsync();
@@ -61,6 +65,7 @@ namespace Tryitter.API.Controllers
 
         // GET: api/Tweets/UserId/2
         [HttpGet("UserId/{id}")]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<GetTweetDto>>> GetTweetsByUserId(int id)
         {
             var tweets = await _tweetRepository.GetByUser(id);
@@ -76,6 +81,7 @@ namespace Tryitter.API.Controllers
 
         // GET: api/Tweets/UserId/Last/2
         [HttpGet("UserId/Last/{id}")]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<GetTweetDetailsDto>>> GetLastTweetByUserId(int id)
         {
             var tweets = await _tweetRepository.GetByUser(id);
@@ -93,6 +99,7 @@ namespace Tryitter.API.Controllers
         // PUT: api/Tweets/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> PutTweet(int id, UpdateTweetDto updateTweetDto)
         {
             if (id != updateTweetDto.Id)
@@ -136,6 +143,7 @@ namespace Tryitter.API.Controllers
         // POST: api/Tweets
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<GetTweetDetailsDto>> PostTweet(CreateTweetDto createTweetDto)
         {
             if(createTweetDto.UserId == 0)
@@ -153,6 +161,7 @@ namespace Tryitter.API.Controllers
         
         // DELETE: api/Tweets/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteTweet(int id)
         {
             var tweet = await _tweetRepository.GetAsync(id);

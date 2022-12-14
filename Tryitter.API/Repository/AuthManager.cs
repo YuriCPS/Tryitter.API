@@ -37,7 +37,7 @@ namespace Tryitter.API.Repository
                     Token = token
                 };                
             }
-
+            
             return null;
         }
 
@@ -59,9 +59,7 @@ namespace Tryitter.API.Repository
                 audience: _config["Jwt:Audience"],
                 claims: claims,
                 expires: DateTime.Now.AddMinutes(Convert.ToInt32(_config["Jwt:DurationInMinutes"])),
-                signingCredentials: credentials
-
-                );
+                signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
