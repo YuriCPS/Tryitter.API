@@ -17,7 +17,7 @@ namespace Tryitter.API.Controllers
         public UsersController(IUserRepository userRepository, IMapper mapper)
         {
             _userRepository = userRepository;
-            this._mapper = mapper;
+            _mapper = mapper;
         }
 
         // GET: api/Users

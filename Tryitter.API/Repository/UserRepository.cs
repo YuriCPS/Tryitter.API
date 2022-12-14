@@ -22,5 +22,10 @@ namespace Tryitter.API.Repository
         {
             return await _context.Users.Include(q => q.Module).FirstOrDefaultAsync(q => q.UserName == userName);
         }
+
+        public async Task<User> GetByEmail(string email)
+        {
+            return await _context.Users.Include(q => q.Module).FirstOrDefaultAsync(q => q.Email == email);
+        }
     }
 }
