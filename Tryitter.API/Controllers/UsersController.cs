@@ -37,7 +37,7 @@ namespace Tryitter.API.Controllers
             var user = await _userRepository.GetDetails(id);
             if (user == null)
             {
-                return NotFound();
+                return NotFound("User not found");
             }
             var userDto = _mapper.Map<GetUserDetailsDto>(user);
 

@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Tryitter.API.Contracts;
 using Tryitter.API.Data;
+using Tryitter.API.Models.Tweet;
 
 namespace Tryitter.API.Controllers
 {
@@ -13,53 +11,64 @@ namespace Tryitter.API.Controllers
     [ApiController]
     public class TweetsController : ControllerBase
     {
-        private readonly TryitterDbContext _context;
+        private readonly ITweetRepository _tweetRepository;
+        private readonly IMapper _mapper;
 
-        public TweetsController(TryitterDbContext context)
+        public TweetsController(ITweetRepository tweetRepository, IMapper mapper)
         {
-            _context = context;
+            _tweetRepository = tweetRepository;
+            _mapper = mapper;
         }
-
+        
         // GET: api/Tweets
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Tweet>>> GetTweets()
+        public async Task<ActionResult<IEnumerable<GetTweetDto>>> GetTweets()
         {
-            return await _context.Tweets.ToListAsync();
+            var tweets = await _tweetRepository.GetAllAsync();
+            var tweetsList = _mapper.Map<List<GetTweetDto>>(tweets);
+
+            return Ok(tweetsList);
         }
 
         // GET: api/Tweets/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Tweet>> GetTweet(int id)
+        public async Task<ActionResult<GetTweetDetailsDto>> GetTweet(int id)
         {
-            var tweet = await _context.Tweets.FindAsync(id);
-
+            var tweet = await _tweetRepository.GetDetails(id);
             if (tweet == null)
             {
-                return NotFound();
+                return NotFound("Tweet not found");
             }
+            var tweetDto = _mapper.Map<GetTweetDetailsDto>(tweet);
 
-            return tweet;
+            return Ok(tweetDto);
         }
 
         // PUT: api/Tweets/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTweet(int id, Tweet tweet)
+        public async Task<IActionResult> PutTweet(int id, UpdateTweetDto updateTweetDto)
         {
-            if (id != tweet.Id)
+            if (id != updateTweetDto.Id)
             {
-                return BadRequest();
+                return BadRequest("Invalid tweet id");
             }
 
-            _context.Entry(tweet).State = EntityState.Modified;
+            var tweet = await _tweetRepository.GetAsync(id);
+            if (tweet == null)
+            {
+                return NotFound("Tweet not found");
+            }
 
+            _mapper.Map(updateTweetDto, tweet);
+                      
             try
             {
-                await _context.SaveChangesAsync();
+                await _tweetRepository.UpdateAsync(tweet);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TweetExists(id))
+                if (!await TweetExists(id))
                 {
                     return NotFound();
                 }
@@ -75,33 +84,31 @@ namespace Tryitter.API.Controllers
         // POST: api/Tweets
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Tweet>> PostTweet(Tweet tweet)
+        public async Task<ActionResult<Tweet>> PostTweet(CreateTweetDto createTweetDto)
         {
-            _context.Tweets.Add(tweet);
-            await _context.SaveChangesAsync();
+            var tweet = _mapper.Map<Tweet>(createTweetDto);
+            await _tweetRepository.AddAsync(tweet);
 
             return CreatedAtAction("GetTweet", new { id = tweet.Id }, tweet);
         }
-
+        
         // DELETE: api/Tweets/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTweet(int id)
         {
-            var tweet = await _context.Tweets.FindAsync(id);
+            var tweet = await _tweetRepository.GetAsync(id);
             if (tweet == null)
             {
-                return NotFound();
+                return NotFound("Tweet not found");
             }
-
-            _context.Tweets.Remove(tweet);
-            await _context.SaveChangesAsync();
+            await _tweetRepository.DeleteAsync(id);
 
             return NoContent();
         }
 
-        private bool TweetExists(int id)
+        private async Task<bool> TweetExists(int id)
         {
-            return _context.Tweets.Any(e => e.Id == id);
+            return await _tweetRepository.Exists(id);
         }
     }
 }
