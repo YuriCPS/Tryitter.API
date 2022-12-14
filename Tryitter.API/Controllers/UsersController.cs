@@ -79,6 +79,12 @@ namespace Tryitter.API.Controllers
                 return NotFound("User not found");
             }
 
+            var userID = User.Claims.FirstOrDefault(c => c.Type == "UserId")?.Value;
+            if (userID != updateUserDto.Id.ToString())
+            {
+                return Unauthorized("Authenticated user must be the same as the tweet's user id");
+            }
+
             _mapper.Map(updateUserDto, user);
 
             try
@@ -121,6 +127,12 @@ namespace Tryitter.API.Controllers
             if (user == null)
             {
                 return NotFound("User not found");
+            }
+
+            var userID = User.Claims.FirstOrDefault(c => c.Type == "UserId")?.Value;
+            if (userID != id.ToString())
+            {
+                return Unauthorized("Authenticated user must be the same as the tweet's user id");
             }
             await _userRepository.DeleteAsync(id);
 

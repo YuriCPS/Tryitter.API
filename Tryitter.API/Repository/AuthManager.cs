@@ -40,7 +40,12 @@ namespace Tryitter.API.Repository
             
             return null;
         }
-
+        
+        //public async Task<bool> VerifyUser(int id, string token)
+        //{
+            
+        //}
+        
         private async Task<string> GenerateToken(User user)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
@@ -51,7 +56,7 @@ namespace Tryitter.API.Repository
                 new Claim(ClaimTypes.NameIdentifier, user.UserName),
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.Name, user.LastName),
-                new Claim("userId", user.Id.ToString())
+                new Claim("UserId", user.Id.ToString())
             };
             
             var token = new JwtSecurityToken(
@@ -72,6 +77,6 @@ namespace Tryitter.API.Repository
             }
 
             return user;
-        }
+        }        
     }
 }

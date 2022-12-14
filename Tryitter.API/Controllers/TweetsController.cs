@@ -117,6 +117,12 @@ namespace Tryitter.API.Controllers
             {
                 return BadRequest("Invalid user id, must be the same as the tweet's user id");
             }
+            
+            var userID = User.Claims.FirstOrDefault(c => c.Type == "UserId")?.Value;
+            if (userID != updateTweetDto.UserId.ToString())
+            {
+                return Unauthorized("Authenticated user must be the same as the tweet's user id");
+            }
 
             _mapper.Map(updateTweetDto, tweet);
             tweet.UpdatedAt = DateTime.Now;
@@ -150,6 +156,13 @@ namespace Tryitter.API.Controllers
             {
                 return BadRequest("Invalid user id");
             }
+
+            var userID = User.Claims.FirstOrDefault(c => c.Type == "UserId")?.Value;
+            if (userID != createTweetDto.UserId.ToString())
+            {
+                return Unauthorized("Authenticated user must be the same as the tweet's user id");
+            }
+
             var tweet = _mapper.Map<Tweet>(createTweetDto);
             tweet.CreatedAt = DateTime.Now;
             tweet.UpdatedAt = DateTime.Now;
