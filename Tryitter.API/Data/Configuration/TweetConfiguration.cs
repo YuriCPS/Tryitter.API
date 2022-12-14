@@ -47,7 +47,16 @@ namespace Tryitter.API.Data.Configuration
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now,
                     UserId = 2,
-                });
+                },
+                new Tweet
+                {
+                    Id = 6,
+                    Content = "Este é o último tweet do Tryitter e meu último tambem ",
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now,
+                    UserId = 1,
+                }
+                );
         }
     }
 }

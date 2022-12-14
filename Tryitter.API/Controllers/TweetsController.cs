@@ -44,6 +44,21 @@ namespace Tryitter.API.Controllers
             return Ok(tweetDto);
         }
 
+        // GET: api/Tweets/Last
+        [HttpGet("Last")]
+        public async Task<ActionResult<GetTweetDetailsDto>> GetLastTweet()
+        {
+            var tweets = await _tweetRepository.GetAllAsync();
+            if (tweets == null || tweets.Count == 0)
+            {
+                return NotFound("No tweets found");
+            }
+            var tweetsList = _mapper.Map<List<GetTweetDetailsDto>>(tweets);
+            tweetsList = tweetsList.OrderByDescending(t => t.CreatedAt).ToList();
+
+            return Ok(tweetsList[0]);
+        }
+
         // GET: api/Tweets/UserId/2
         [HttpGet("UserId/{id}")]
         public async Task<ActionResult<IEnumerable<GetTweetDto>>> GetTweetsByUserId(int id)

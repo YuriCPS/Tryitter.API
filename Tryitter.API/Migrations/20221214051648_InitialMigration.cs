@@ -85,23 +85,24 @@ namespace Tryitter.API.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Bio", "Email", "FirstName", "ImageUrl", "LastName", "ModuleId", "Password", "UserName" },
-                values: new object[] { 1, "Administrador do Tryitter", "admin@email.com.br", "Admin", "https://via.placeholder.com/300/09f/fff.jpg", "Tryitter", 5, "admin123", "Admin" });
+                values: new object[] { 1, "Administrador do Tryitter", "admin@email.com.br", "Admin", "https://via.placeholder.com/300/09f/fff.jpg", "Tryitter", 5, "admin123", "admin" });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Bio", "Email", "FirstName", "ImageUrl", "LastName", "ModuleId", "Password", "UserName" },
-                values: new object[] { 2, "Criador do Tryitter", "yuri@email.com.br", "Yuri", "https://via.placeholder.com/300/09f/fff.jpg", "Carvalho", 5, "yuri123", "Yuri" });
+                values: new object[] { 2, "Criador do Tryitter", "yuri@email.com.br", "Yuri", "https://via.placeholder.com/300/09f/fff.jpg", "Carvalho", 5, "yuri123", "yuri" });
 
             migrationBuilder.InsertData(
                 table: "Tweets",
                 columns: new[] { "Id", "Content", "CreatedAt", "UpdatedAt", "UserId" },
                 values: new object[,]
                 {
-                    { 1, "Esté é o primeiro tweet do Tryitter", new DateTime(2022, 12, 14, 1, 35, 13, 874, DateTimeKind.Local).AddTicks(8097), new DateTime(2022, 12, 14, 1, 35, 13, 874, DateTimeKind.Local).AddTicks(8105), 2 },
-                    { 2, "Olá, mundo!", new DateTime(2022, 12, 14, 1, 35, 13, 874, DateTimeKind.Local).AddTicks(8107), new DateTime(2022, 12, 14, 1, 35, 13, 874, DateTimeKind.Local).AddTicks(8107), 1 },
-                    { 3, "Este é meu segundo tweet", new DateTime(2022, 12, 14, 1, 35, 13, 874, DateTimeKind.Local).AddTicks(8108), new DateTime(2022, 12, 14, 1, 35, 13, 874, DateTimeKind.Local).AddTicks(8109), 2 },
-                    { 4, "Seja bem vindo ao Tryitter", new DateTime(2022, 12, 14, 1, 35, 13, 874, DateTimeKind.Local).AddTicks(8110), new DateTime(2022, 12, 14, 1, 35, 13, 874, DateTimeKind.Local).AddTicks(8110), 1 },
-                    { 5, "Este é o meu último tweet", new DateTime(2022, 12, 14, 1, 35, 13, 874, DateTimeKind.Local).AddTicks(8112), new DateTime(2022, 12, 14, 1, 35, 13, 874, DateTimeKind.Local).AddTicks(8112), 2 }
+                    { 1, "Esté é o primeiro tweet do Tryitter", new DateTime(2022, 12, 14, 2, 16, 48, 423, DateTimeKind.Local).AddTicks(7410), new DateTime(2022, 12, 14, 2, 16, 48, 423, DateTimeKind.Local).AddTicks(7418), 2 },
+                    { 2, "Olá, mundo!", new DateTime(2022, 12, 14, 2, 16, 48, 423, DateTimeKind.Local).AddTicks(7420), new DateTime(2022, 12, 14, 2, 16, 48, 423, DateTimeKind.Local).AddTicks(7421), 1 },
+                    { 3, "Este é meu segundo tweet", new DateTime(2022, 12, 14, 2, 16, 48, 423, DateTimeKind.Local).AddTicks(7422), new DateTime(2022, 12, 14, 2, 16, 48, 423, DateTimeKind.Local).AddTicks(7422), 2 },
+                    { 4, "Seja bem vindo ao Tryitter", new DateTime(2022, 12, 14, 2, 16, 48, 423, DateTimeKind.Local).AddTicks(7423), new DateTime(2022, 12, 14, 2, 16, 48, 423, DateTimeKind.Local).AddTicks(7424), 1 },
+                    { 5, "Este é o meu último tweet", new DateTime(2022, 12, 14, 2, 16, 48, 423, DateTimeKind.Local).AddTicks(7425), new DateTime(2022, 12, 14, 2, 16, 48, 423, DateTimeKind.Local).AddTicks(7425), 2 },
+                    { 6, "Este é o último tweet do Tryitter e meu último tambem ", new DateTime(2022, 12, 14, 2, 16, 48, 423, DateTimeKind.Local).AddTicks(7426), new DateTime(2022, 12, 14, 2, 16, 48, 423, DateTimeKind.Local).AddTicks(7427), 1 }
                 });
 
             migrationBuilder.CreateIndex(

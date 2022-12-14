@@ -12,7 +12,7 @@ using Tryitter.API.Data;
 namespace Tryitter.API.Migrations
 {
     [DbContext(typeof(TryitterDbContext))]
-    [Migration("20221214043514_InitialMigration")]
+    [Migration("20221214051648_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -100,41 +100,49 @@ namespace Tryitter.API.Migrations
                         {
                             Id = 1,
                             Content = "Esté é o primeiro tweet do Tryitter",
-                            CreatedAt = new DateTime(2022, 12, 14, 1, 35, 13, 874, DateTimeKind.Local).AddTicks(8097),
-                            UpdatedAt = new DateTime(2022, 12, 14, 1, 35, 13, 874, DateTimeKind.Local).AddTicks(8105),
+                            CreatedAt = new DateTime(2022, 12, 14, 2, 16, 48, 423, DateTimeKind.Local).AddTicks(7410),
+                            UpdatedAt = new DateTime(2022, 12, 14, 2, 16, 48, 423, DateTimeKind.Local).AddTicks(7418),
                             UserId = 2
                         },
                         new
                         {
                             Id = 2,
                             Content = "Olá, mundo!",
-                            CreatedAt = new DateTime(2022, 12, 14, 1, 35, 13, 874, DateTimeKind.Local).AddTicks(8107),
-                            UpdatedAt = new DateTime(2022, 12, 14, 1, 35, 13, 874, DateTimeKind.Local).AddTicks(8107),
+                            CreatedAt = new DateTime(2022, 12, 14, 2, 16, 48, 423, DateTimeKind.Local).AddTicks(7420),
+                            UpdatedAt = new DateTime(2022, 12, 14, 2, 16, 48, 423, DateTimeKind.Local).AddTicks(7421),
                             UserId = 1
                         },
                         new
                         {
                             Id = 3,
                             Content = "Este é meu segundo tweet",
-                            CreatedAt = new DateTime(2022, 12, 14, 1, 35, 13, 874, DateTimeKind.Local).AddTicks(8108),
-                            UpdatedAt = new DateTime(2022, 12, 14, 1, 35, 13, 874, DateTimeKind.Local).AddTicks(8109),
+                            CreatedAt = new DateTime(2022, 12, 14, 2, 16, 48, 423, DateTimeKind.Local).AddTicks(7422),
+                            UpdatedAt = new DateTime(2022, 12, 14, 2, 16, 48, 423, DateTimeKind.Local).AddTicks(7422),
                             UserId = 2
                         },
                         new
                         {
                             Id = 4,
                             Content = "Seja bem vindo ao Tryitter",
-                            CreatedAt = new DateTime(2022, 12, 14, 1, 35, 13, 874, DateTimeKind.Local).AddTicks(8110),
-                            UpdatedAt = new DateTime(2022, 12, 14, 1, 35, 13, 874, DateTimeKind.Local).AddTicks(8110),
+                            CreatedAt = new DateTime(2022, 12, 14, 2, 16, 48, 423, DateTimeKind.Local).AddTicks(7423),
+                            UpdatedAt = new DateTime(2022, 12, 14, 2, 16, 48, 423, DateTimeKind.Local).AddTicks(7424),
                             UserId = 1
                         },
                         new
                         {
                             Id = 5,
                             Content = "Este é o meu último tweet",
-                            CreatedAt = new DateTime(2022, 12, 14, 1, 35, 13, 874, DateTimeKind.Local).AddTicks(8112),
-                            UpdatedAt = new DateTime(2022, 12, 14, 1, 35, 13, 874, DateTimeKind.Local).AddTicks(8112),
+                            CreatedAt = new DateTime(2022, 12, 14, 2, 16, 48, 423, DateTimeKind.Local).AddTicks(7425),
+                            UpdatedAt = new DateTime(2022, 12, 14, 2, 16, 48, 423, DateTimeKind.Local).AddTicks(7425),
                             UserId = 2
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Content = "Este é o último tweet do Tryitter e meu último tambem ",
+                            CreatedAt = new DateTime(2022, 12, 14, 2, 16, 48, 423, DateTimeKind.Local).AddTicks(7426),
+                            UpdatedAt = new DateTime(2022, 12, 14, 2, 16, 48, 423, DateTimeKind.Local).AddTicks(7427),
+                            UserId = 1
                         });
                 });
 
@@ -194,7 +202,7 @@ namespace Tryitter.API.Migrations
                             LastName = "Tryitter",
                             ModuleId = 5,
                             Password = "admin123",
-                            UserName = "Admin"
+                            UserName = "admin"
                         },
                         new
                         {
@@ -206,7 +214,7 @@ namespace Tryitter.API.Migrations
                             LastName = "Carvalho",
                             ModuleId = 5,
                             Password = "yuri123",
-                            UserName = "Yuri"
+                            UserName = "yuri"
                         });
                 });
 
