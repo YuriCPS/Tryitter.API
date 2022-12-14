@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Tryitter.API.Contracts;
@@ -17,11 +18,12 @@ namespace Tryitter.API.Controllers
         public UsersController(IUserRepository userRepository, IMapper mapper)
         {
             _userRepository = userRepository;
-            this._mapper = mapper;
+            _mapper = mapper;
         }
 
         // GET: api/Users
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<GetUserDto>>> GetUsers()
         {
             var users = await _userRepository.GetAllAsync();
@@ -32,6 +34,7 @@ namespace Tryitter.API.Controllers
 
         // GET: api/Users/5
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<ActionResult<GetUserDetailsDto>> GetUser(int id)
         {
             var user = await _userRepository.GetById(id);
@@ -46,6 +49,7 @@ namespace Tryitter.API.Controllers
 
         // GET: api/Users/UserName/userName
         [HttpGet("UserName/{userName}")]
+        [AllowAnonymous]
         public async Task<ActionResult<GetUserDetailsDto>> GetUserByUserName(string userName)
         {
             var user = await _userRepository.GetByUserName(userName);
@@ -61,6 +65,7 @@ namespace Tryitter.API.Controllers
         // PUT: api/Users/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> PutUser(int id, UpdateUserDto updateUserDto)
         {
             if (id != updateUserDto.Id)
@@ -72,6 +77,12 @@ namespace Tryitter.API.Controllers
             if (user == null)
             {
                 return NotFound("User not found");
+            }
+
+            var userID = User.Claims.FirstOrDefault(c => c.Type == "UserId")?.Value;
+            if (userID != updateUserDto.Id.ToString())
+            {
+                return Unauthorized("Authenticated user must be the same as the tweet's user id");
             }
 
             _mapper.Map(updateUserDto, user);
@@ -98,6 +109,7 @@ namespace Tryitter.API.Controllers
         // POST: api/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<GetUserDetailsDto>> PostUser(CreateUserDto createUserDto)
         {
             var user = _mapper.Map<User>(createUserDto);
@@ -108,12 +120,19 @@ namespace Tryitter.API.Controllers
 
         // DELETE: api/Users/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteUser(int id)
         {
             var user = await _userRepository.GetAsync(id);
             if (user == null)
             {
                 return NotFound("User not found");
+            }
+
+            var userID = User.Claims.FirstOrDefault(c => c.Type == "UserId")?.Value;
+            if (userID != id.ToString())
+            {
+                return Unauthorized("Authenticated user must be the same as the tweet's user id");
             }
             await _userRepository.DeleteAsync(id);
 
