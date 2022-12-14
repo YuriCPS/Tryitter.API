@@ -12,7 +12,7 @@ using Tryitter.API.Data;
 namespace Tryitter.API.Migrations
 {
     [DbContext(typeof(TryitterDbContext))]
-    [Migration("20221213070322_InitialMigration")]
+    [Migration("20221214043514_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -100,17 +100,41 @@ namespace Tryitter.API.Migrations
                         {
                             Id = 1,
                             Content = "Esté é o primeiro tweet do Tryitter",
-                            CreatedAt = new DateTime(2022, 12, 13, 4, 3, 22, 473, DateTimeKind.Local).AddTicks(9548),
-                            UpdatedAt = new DateTime(2022, 12, 13, 4, 3, 22, 473, DateTimeKind.Local).AddTicks(9557),
+                            CreatedAt = new DateTime(2022, 12, 14, 1, 35, 13, 874, DateTimeKind.Local).AddTicks(8097),
+                            UpdatedAt = new DateTime(2022, 12, 14, 1, 35, 13, 874, DateTimeKind.Local).AddTicks(8105),
                             UserId = 2
                         },
                         new
                         {
                             Id = 2,
                             Content = "Olá, mundo!",
-                            CreatedAt = new DateTime(2022, 12, 13, 4, 3, 22, 473, DateTimeKind.Local).AddTicks(9559),
-                            UpdatedAt = new DateTime(2022, 12, 13, 4, 3, 22, 473, DateTimeKind.Local).AddTicks(9559),
+                            CreatedAt = new DateTime(2022, 12, 14, 1, 35, 13, 874, DateTimeKind.Local).AddTicks(8107),
+                            UpdatedAt = new DateTime(2022, 12, 14, 1, 35, 13, 874, DateTimeKind.Local).AddTicks(8107),
                             UserId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Content = "Este é meu segundo tweet",
+                            CreatedAt = new DateTime(2022, 12, 14, 1, 35, 13, 874, DateTimeKind.Local).AddTicks(8108),
+                            UpdatedAt = new DateTime(2022, 12, 14, 1, 35, 13, 874, DateTimeKind.Local).AddTicks(8109),
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Content = "Seja bem vindo ao Tryitter",
+                            CreatedAt = new DateTime(2022, 12, 14, 1, 35, 13, 874, DateTimeKind.Local).AddTicks(8110),
+                            UpdatedAt = new DateTime(2022, 12, 14, 1, 35, 13, 874, DateTimeKind.Local).AddTicks(8110),
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Content = "Este é o meu último tweet",
+                            CreatedAt = new DateTime(2022, 12, 14, 1, 35, 13, 874, DateTimeKind.Local).AddTicks(8112),
+                            UpdatedAt = new DateTime(2022, 12, 14, 1, 35, 13, 874, DateTimeKind.Local).AddTicks(8112),
+                            UserId = 2
                         });
                 });
 
@@ -131,6 +155,10 @@ namespace Tryitter.API.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -162,6 +190,7 @@ namespace Tryitter.API.Migrations
                             Bio = "Administrador do Tryitter",
                             Email = "admin@email.com.br",
                             FirstName = "Admin",
+                            ImageUrl = "https://via.placeholder.com/300/09f/fff.jpg",
                             LastName = "Tryitter",
                             ModuleId = 5,
                             Password = "admin123",
@@ -173,6 +202,7 @@ namespace Tryitter.API.Migrations
                             Bio = "Criador do Tryitter",
                             Email = "yuri@email.com.br",
                             FirstName = "Yuri",
+                            ImageUrl = "https://via.placeholder.com/300/09f/fff.jpg",
                             LastName = "Carvalho",
                             ModuleId = 5,
                             Password = "yuri123",
