@@ -13,9 +13,14 @@ namespace Tryitter.API.Repository
             _context = context;
         }
 
-        public async Task<User> GetDetails(int id)
+        public async Task<User> GetById(int id)
         {
             return await _context.Users.Include(q => q.Module).FirstOrDefaultAsync(q => q.Id == id);
+        }
+
+        public async Task<User> GetByUserName(string userName)
+        {
+            return await _context.Users.Include(q => q.Module).FirstOrDefaultAsync(q => q.UserName == userName);
         }
     }
 }

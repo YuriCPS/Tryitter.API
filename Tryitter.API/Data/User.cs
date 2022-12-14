@@ -12,6 +12,7 @@ namespace Tryitter.API.Data
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Bio { get; set; }
+        public string ImageUrl { get; set; }
 
         [ForeignKey(nameof(ModuleId))]
         public int ModuleId { get; set; }

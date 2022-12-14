@@ -34,7 +34,21 @@ namespace Tryitter.API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<GetUserDetailsDto>> GetUser(int id)
         {
-            var user = await _userRepository.GetDetails(id);
+            var user = await _userRepository.GetById(id);
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
+            var userDto = _mapper.Map<GetUserDetailsDto>(user);
+
+            return Ok(userDto);
+        }
+
+        // GET: api/Users/UserName/userName
+        [HttpGet("UserName/{userName}")]
+        public async Task<ActionResult<GetUserDetailsDto>> GetUserByUserName(string userName)
+        {
+            var user = await _userRepository.GetByUserName(userName);
             if (user == null)
             {
                 return NotFound("User not found");

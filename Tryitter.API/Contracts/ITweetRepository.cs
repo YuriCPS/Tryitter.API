@@ -4,6 +4,7 @@ namespace Tryitter.API.Contracts
 {
     public interface ITweetRepository : IGenericRepository<Tweet>
     {
-        Task<Tweet> GetDetails(int id);
+        Task<Tweet> GetById(int id);
+        Task<List<Tweet>> GetByUser(int userId);
     }
 }

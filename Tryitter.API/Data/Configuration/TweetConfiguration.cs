@@ -23,7 +23,40 @@ namespace Tryitter.API.Data.Configuration
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now,
                     UserId = 1,
-                });
+                },
+                new Tweet
+                {
+                    Id = 3,
+                    Content = "Este é meu segundo tweet",
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now,
+                    UserId = 2,
+                },
+                new Tweet
+                {
+                    Id = 4,
+                    Content = "Seja bem vindo ao Tryitter",
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now,
+                    UserId = 1,
+                },
+                new Tweet
+                {
+                    Id = 5,
+                    Content = "Este é o meu último tweet",
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now,
+                    UserId = 2,
+                },
+                new Tweet
+                {
+                    Id = 6,
+                    Content = "Este é o último tweet do Tryitter e meu último tambem ",
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now,
+                    UserId = 1,
+                }
+                );
         }
     }
 }

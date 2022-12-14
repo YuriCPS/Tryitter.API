@@ -4,6 +4,8 @@ namespace Tryitter.API.Contracts
 {
     public interface IUserRepository : IGenericRepository<User>
     {
-        Task<User> GetDetails(int id);
+        Task<User> GetById(int id);
+
+        Task<User> GetByUserName(string userName);
     }
 }
