@@ -2,7 +2,8 @@ name: Build and deploy .NET Core application to Web App TryitterAPI-YuriCPS
 on:
   push:
     branches:
-    - tests
+    - publish
+    - release
 env:
   AZURE_WEBAPP_NAME: TryitterAPI-YuriCPS
   AZURE_WEBAPP_PACKAGE_PATH: Tryitter.API\publish
