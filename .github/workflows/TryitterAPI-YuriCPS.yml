@@ -3,6 +3,9 @@ on:
   push:
     branches:
     - publish
+  pull_request:
+    branches:
+    - release
 env:
   AZURE_WEBAPP_NAME: TryitterAPI-YuriCPS
   AZURE_WEBAPP_PACKAGE_PATH: Tryitter.API\publish
