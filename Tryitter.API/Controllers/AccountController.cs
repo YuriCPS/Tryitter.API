@@ -26,19 +26,34 @@ namespace Tryitter.API.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost("Register")]
         [AllowAnonymous]
-        public async Task<ActionResult<GetUserDetailsDto>> PostUser(CreateUserDto createUserDto)
+        public async Task<ActionResult> RegisterUser([FromBody] CreateUserDto createUserDto)
         {
-            var user = _mapper.Map<User>(createUserDto);
-            await _userRepository.AddAsync(user);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            
+            if (await _userRepository.GetByEmail(createUserDto.Email) != null)
+            {
+                return BadRequest("User with this email already exists");
+            }
 
-            return CreatedAtAction("GetUser", new { id = user.Id }, user);
+            if (await _userRepository.GetByUserName(createUserDto.UserName) != null)
+            {
+                return BadRequest("User with this username already exists");
+            }
+
+            var userToCreate = _mapper.Map<User>(createUserDto);
+            await _userRepository.AddAsync(userToCreate);
+
+            return Ok(userToCreate);
         }
 
         // POST: api/Login
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost("Login")]
         [AllowAnonymous]
-        public async Task<ActionResult<AuthUserResponseDto>> LoginUser(LoginUserDto loginUserDto)
+        public async Task<ActionResult<AuthUserResponseDto>> LoginUser([FromBody] LoginUserDto loginUserDto)
         {
             var authResponse = await _authManager.Login(loginUserDto);
 
