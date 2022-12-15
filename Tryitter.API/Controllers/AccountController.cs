@@ -38,7 +38,7 @@ namespace Tryitter.API.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost("Login")]
         [AllowAnonymous]
-        public async Task<ActionResult<GetUserDetailsDto>> LoginUser(LoginUserDto loginUserDto)
+        public async Task<ActionResult<AuthUserResponseDto>> LoginUser(LoginUserDto loginUserDto)
         {
             var authResponse = await _authManager.Login(loginUserDto);
 
